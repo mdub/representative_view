@@ -4,7 +4,8 @@ source "http://rubygems.org"
 gemspec
 
 group :test do
-  gem "rake", "~> 0.8.7"
-  gem "rspec", "~> 1.3.0"
+  gem "rake"
+  gem "rspec", "~> 2.0.1"
+  gem "rr", "~> 1.0.0"
   gem "nokogiri", "~> 1.4.2"
 end
