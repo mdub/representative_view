@@ -9,11 +9,13 @@ module RepresentativeView
     self.default_format = Mime::XML
 
     def compile(template)
+      require 'representative/json'
       require 'representative/nokogiri'
       <<-RUBY
-      r = ::Representative::Nokogiri.new
+      desired_output_format = formats.first
+      r = (desired_output_format == :xml ? ::Representative::Nokogiri : ::Representative::JSON).new
       #{template.source}
-      r.to_xml(:save_with => (Nokogiri::XML::Node::SaveOptions::FORMAT | Nokogiri::XML::Node::SaveOptions::NO_DECLARATION))
+      r.send("to_\#{desired_output_format}")
       RUBY
     end
 
