@@ -9,13 +9,12 @@ module RepresentativeView
     self.default_format = Mime::XML
 
     def compile(template)
-      require 'builder'
-      require 'representative/xml'
-      "xml = ::Builder::XmlMarkup.new(:indent => 2)\n" +
-      "r = ::Representative::Xml.new(xml)\n" +
-      "self.output_buffer = xml.target!\n" +
-      template.source +
-      "\nxml.target!\n"
+      require 'representative/nokogiri'
+      <<-RUBY
+      r = ::Representative::Nokogiri.new
+      #{template.source}
+      r.to_xml(:save_with => (Nokogiri::XML::Node::SaveOptions::FORMAT | Nokogiri::XML::Node::SaveOptions::NO_DECLARATION))
+      RUBY
     end
 
   end
