@@ -1,5 +1,7 @@
-require 'rspec'
+require 'action_view'
 require 'minstrel'
+require 'representative_view'
+require 'rspec'
 
 require 'fixtures/books'
 

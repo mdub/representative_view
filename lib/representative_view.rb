@@ -1,3 +1,1 @@
-module RepresentativeView
-  # Your code goes here...
-end
+require 'representative_view/template_handler'

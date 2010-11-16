@@ -1,17 +1,45 @@
 require 'spec_helper'
-require 'action_view'
 
-describe "ActionPack" do
-  
-  it "can render XML" do
+describe "rendering" do
+
+  before do
     @base = ActionView::Base.new(template_path, {:books => Books.all})
-    @base.render(:file => "books").should == undent(<<-XML)
-      <books>
-        <title>Sailing for old dogs</title>
-        <title>On the horizon</title>
-        <title>The Little Blue Book of VHS Programming</title>
-      </books>
-    XML
+  end
+  
+  describe "a Builder template" do
+    it "generates XML" do
+      @base.render(:file => "books-b").should == undent(<<-XML)
+        <books type="array">
+          <book>
+            <title>Sailing for old dogs</title>
+          </book>
+          <book>
+            <title>On the horizon</title>
+          </book>
+          <book>
+            <title>The Little Blue Book of VHS Programming</title>
+          </book>
+        </books>
+      XML
+    end
+  end
+
+  describe "a Representative template" do
+    it "generates XML" do
+      @base.render(:file => "books-r").should == undent(<<-XML)
+        <books type="array">
+          <book>
+            <title>Sailing for old dogs</title>
+          </book>
+          <book>
+            <title>On the horizon</title>
+          </book>
+          <book>
+            <title>The Little Blue Book of VHS Programming</title>
+          </book>
+        </books>
+      XML
+    end
   end
   
 end
