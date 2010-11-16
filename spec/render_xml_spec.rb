@@ -1,21 +1,17 @@
 require 'spec_helper'
 require 'action_view'
 
-describe "fixtures" do
-
-  it "contains books" do
-    Books.all.should be_kind_of(Array)
-  end
-
-end
-
-TEMPLATE_PATH = File.join(File.dirname(__FILE__), "fixtures", "templates")
-
 describe "ActionPack" do
   
   it "can render XML" do
-    @base = ActionView::Base.new(TEMPLATE_PATH, {})
-    @base.render(:inline => "<%= 100 + 23 %>", :type => :erb).should == "123"
+    @base = ActionView::Base.new(template_path, {:books => Books.all})
+    @base.render(:file => "books").should == undent(<<-XML)
+      <books>
+        <title>Sailing for old dogs</title>
+        <title>On the horizon</title>
+        <title>The Little Blue Book of VHS Programming</title>
+      </books>
+    XML
   end
   
 end
