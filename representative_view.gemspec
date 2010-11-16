@@ -12,6 +12,8 @@ Gem::Specification.new do |gem|
 
   gem.version = RepresentativeView::VERSION.dup
   gem.platform = Gem::Platform::RUBY
+
+  gem.add_runtime_dependency("representative", "~> 0.3.0")
   gem.add_runtime_dependency("actionpack", "~> 3.0.1")
 
   gem.require_paths = ["lib"]
