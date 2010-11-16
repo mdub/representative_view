@@ -2,13 +2,14 @@ require 'spec_helper'
 
 describe "rendering" do
 
-  before do
-    @base = ActionView::Base.new(template_path, {:books => Books.all})
+  def render(file, format = :xml)
+    @base = ActionView::Base.new(template_path, {:books => Books.all}, nil, [format])
+    @base.render(:file => file)
   end
   
   describe "a Builder template" do
     it "generates XML" do
-      @base.render(:file => "books-b").should == undent(<<-XML)
+      render("books-b").should == undent(<<-XML)
         <books type="array">
           <book>
             <title>Sailing for old dogs</title>
@@ -26,7 +27,7 @@ describe "rendering" do
 
   describe "a Representative template" do
     it "generates XML" do
-      @base.render(:file => "books-r").should == undent(<<-XML)
+      render("books-r").should == undent(<<-XML)
         <books type="array">
           <book>
             <title>Sailing for old dogs</title>
