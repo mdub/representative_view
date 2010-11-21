@@ -12,15 +12,40 @@ module RepresentativeView
       require 'representative/json'
       require 'representative/nokogiri'
       <<-RUBY
-      desired_output_format = formats.first
-      r = (desired_output_format == :xml ? ::Representative::Nokogiri : ::Representative::JSON).new
-      #{template.source}
-      r.send("to_\#{desired_output_format}")
+      representative_view do |r|
+        #{template.source}
+      end
       RUBY
     end
 
   end
 
-  ActionView::Template.register_template_handler(:rep, TemplateHandler)
+  module ViewHelpers
 
+    def representative_class_for_format(output_format)
+      case output_format
+      when :xml
+        ::Representative::Nokogiri
+      when :json
+        ::Representative::JSON
+      end
+    end
+
+    def representative_view
+      output_format = formats.first
+      r = representative_class_for_format(output_format).new
+      yield r
+      r.send("to_#{output_format}")
+    end
+    
+  end
+  
+end
+
+ActionView::Template.register_template_handler(:rep, RepresentativeView::TemplateHandler)
+
+class ActionView::Base
+  
+  include RepresentativeView::ViewHelpers
+  
 end
