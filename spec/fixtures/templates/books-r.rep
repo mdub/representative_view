@@ -1,3 +1,0 @@
-r.list_of :books, @books do
-  r.element :title
-end
