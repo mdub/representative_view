@@ -18,7 +18,13 @@ module Fixtures
       io << content
     end
   end
-  
+
+  def render(file, format = :xml, assigns = {})
+    @base = ActionView::Base.new($template_dir.to_str, assigns)
+    @base.lookup_context.freeze_formats([format])
+    @base.render(:file => file)
+  end
+
 end
 
 Rspec.configure do |config|
