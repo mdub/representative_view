@@ -33,9 +33,9 @@ module RepresentativeView
 
     def representative_view
       output_format = formats.first
-      r = representative_class_for_format(output_format).new
-      yield r
-      r.send("to_#{output_format}")
+      @_representative ||= representative_class_for_format(output_format).new
+      yield @_representative
+      @_representative.send("to_#{output_format}")
     end
     
   end
