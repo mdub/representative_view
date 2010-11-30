@@ -33,9 +33,10 @@ module RepresentativeView
 
     def representative_view
       output_format = formats.first
+      included = defined?(@_representative)
       @_representative ||= representative_class_for_format(output_format).new
       yield @_representative
-      @_representative.send("to_#{output_format}")
+      @_representative.send("to_#{output_format}") unless included
     end
     
   end
