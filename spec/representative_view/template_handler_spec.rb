@@ -27,6 +27,24 @@ describe "a Representative template" do
     XML
   end
 
+  it "can generate XML dialects" do
+    Mime::Type.register "application/vnd.books+xml", :book_xml
+    render("books", :book_xml, :books => Books.all).should == undent(<<-XML)
+      <?xml version="1.0"?>
+      <books type="array">
+        <book>
+          <title>Sailing for old dogs</title>
+        </book>
+        <book>
+          <title>On the horizon</title>
+        </book>
+        <book>
+          <title>The Little Blue Book of VHS Programming</title>
+        </book>
+      </books>
+    XML
+  end
+
   it "can generate JSON" do
     render("books", :json, :books => Books.all).should == undent(<<-JSON)
       [
