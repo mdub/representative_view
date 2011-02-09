@@ -2,11 +2,21 @@ require 'action_view'
 
 module RepresentativeView
 
-  class TemplateHandler < ActionView::Template::Handler
+  if defined?(ActionView::Template::Handler)
+    base_class = ActionView::Template::Handler
+  else
+    base_class = ActionView::TemplateHandler
+  end
 
-    include ActionView::Template::Handlers::Compilable
+  class TemplateHandler < base_class
 
-    self.default_format = Mime::XML
+    if defined?(ActionView::Template::Handlers::Compilable)
+      include ActionView::Template::Handlers::Compilable
+    else
+      include ActionView::TemplateHandlers::Compilable
+    end
+
+    self.default_format = Mime::XML if respond_to?(:default_format=)
 
     def compile(template)
       require 'representative/json'
@@ -23,7 +33,11 @@ module RepresentativeView
   module ViewHelpers
 
     def mime_type
-      format_extension = formats.first
+      if respond_to? :formats
+        format_extension = formats.first
+      else
+        format_extension = template_format
+      end
       Mime::Type.lookup_by_extension(format_extension.to_s) || begin
         raise "unrecognised format #{format_extension.inspect}"
       end
@@ -51,7 +65,11 @@ module RepresentativeView
   
 end
 
-ActionView::Template.register_template_handler(:rep, RepresentativeView::TemplateHandler)
+if defined? ActionView::Template and ActionView::Template.respond_to? :register_template_handler
+  ActionView::Template.register_template_handler(:rep, RepresentativeView::TemplateHandler)
+else
+  ActionView::Base.register_template_handler(:rep, RepresentativeView::TemplateHandler)
+end
 
 class ActionView::Base
   
