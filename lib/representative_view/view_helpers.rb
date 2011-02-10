@@ -5,10 +5,10 @@ module RepresentativeView
   module ViewHelpers
 
     def mime_type
-      if respond_to? :formats
-        format_extension = formats.first
-      else
+      if respond_to?(:template_format)
         format_extension = template_format
+      else
+        format_extension = formats.first
       end
       Mime::Type.lookup_by_extension(format_extension.to_s) || begin
         raise "unrecognised format #{format_extension.inspect}"
