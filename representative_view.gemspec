@@ -14,7 +14,7 @@ Gem::Specification.new do |gem|
   gem.platform = Gem::Platform::RUBY
 
   gem.add_runtime_dependency("representative", "~> 0.3.1")
-  gem.add_runtime_dependency("actionpack", "~> 3.0.1")
+  gem.add_runtime_dependency("actionpack", "> 2.3.0", "< 4.0.0")
   gem.add_runtime_dependency("nokogiri", ">= 1.4.2")
   gem.add_runtime_dependency("json", ">= 1.4.5")
 
