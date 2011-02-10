@@ -1,1 +1,2 @@
-require 'representative_view/template_handler'
+require "action_pack/version"
+require "representative_view/action_pack_#{ActionPack::VERSION::MAJOR}_handler"

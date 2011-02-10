@@ -1,4 +1,5 @@
 require 'spec_helper'
+require 'action_controller'
 
 describe "a Representative template" do
 

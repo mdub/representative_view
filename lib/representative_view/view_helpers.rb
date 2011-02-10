@@ -2,34 +2,6 @@ require 'action_view'
 
 module RepresentativeView
 
-  if defined?(ActionView::Template::Handler)
-    base_class = ActionView::Template::Handler
-  else
-    base_class = ActionView::TemplateHandler
-  end
-
-  class TemplateHandler < base_class
-
-    if defined?(ActionView::Template::Handlers::Compilable)
-      include ActionView::Template::Handlers::Compilable
-    else
-      include ActionView::TemplateHandlers::Compilable
-    end
-
-    self.default_format = Mime::XML if respond_to?(:default_format=)
-
-    def compile(template)
-      require 'representative/json'
-      require 'representative/nokogiri'
-      <<-RUBY
-      representative_view do |r|
-        #{template.source}
-      end
-      RUBY
-    end
-
-  end
-
   module ViewHelpers
 
     def mime_type
@@ -63,12 +35,6 @@ module RepresentativeView
     
   end
   
-end
-
-if defined? ActionView::Template and ActionView::Template.respond_to? :register_template_handler
-  ActionView::Template.register_template_handler(:rep, RepresentativeView::TemplateHandler)
-else
-  ActionView::Base.register_template_handler(:rep, RepresentativeView::TemplateHandler)
 end
 
 class ActionView::Base
