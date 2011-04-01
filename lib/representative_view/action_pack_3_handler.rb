@@ -11,8 +11,12 @@ module RepresentativeView
     def compile(template)
       require 'representative/json'
       require 'representative/nokogiri'
+
+      format = template.formats.first
+      format = nil if Mime[format] == default_format
+
       <<-RUBY
-      representative_view do |r|
+      representative_view(#{format.inspect}) do |r|
         #{template.source}
       end
       RUBY

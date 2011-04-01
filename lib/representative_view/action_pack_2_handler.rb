@@ -18,7 +18,7 @@ module RepresentativeView
 
   end
 
-  
+
 end
 
 ActionView::Template.register_template_handler(:rep, RepresentativeView::ActionPack2Handler)
