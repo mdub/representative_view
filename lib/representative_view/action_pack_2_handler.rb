@@ -10,7 +10,7 @@ module RepresentativeView
       require 'representative/json'
       require 'representative/nokogiri'
       <<-RUBY
-      representative_view do |r|
+      representative_view(#{template.format.inspect}) do |r|
         #{template.source}
       end
       RUBY
