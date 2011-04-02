@@ -14,9 +14,9 @@ module RepresentativeView
         raise "unrecognised format #{format_extension.inspect}"
       end
     end
-    
-    def appropriate_representative_class
-      case mime_type.to_s
+
+    def appropriate_representative_class(format)
+      case (format || mime_type).to_s
       when /xml/
         ::Representative::Nokogiri
       when /json/
@@ -26,19 +26,19 @@ module RepresentativeView
       end
     end
 
-    def representative_view
+    def representative_view(format = nil)
       included = defined?(@_representative)
-      @_representative ||= appropriate_representative_class.new
+      @_representative ||= appropriate_representative_class(format).new
       yield @_representative
       @_representative.to_s unless included
     end
-    
+
   end
-  
+
 end
 
 class ActionView::Base
-  
+
   include RepresentativeView::ViewHelpers
-  
+
 end

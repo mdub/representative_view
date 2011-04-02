@@ -10,7 +10,7 @@ describe "a Representative template" do
       end
     RUBY
   end
-  
+
   it "can generate XML" do
     render("books", :xml, :books => Books.all).should == undent(<<-XML)
       <?xml version="1.0"?>
@@ -99,6 +99,27 @@ describe "a Representative template" do
     JSON
 
   end
-  
-  
+
+  it "can infer the format from the file" do
+    write_template 'more_books.json.rep', <<-RUBY
+      r.list_of :books, @books do
+        r.element :title
+      end
+    RUBY
+
+    render("more_books.json", :html, :books => Books.all).should == undent(<<-JSON)
+      [
+        {
+          "title": "Sailing for old dogs"
+        },
+        {
+          "title": "On the horizon"
+        },
+        {
+          "title": "The Little Blue Book of VHS Programming"
+        }
+      ]
+    JSON
+  end
+
 end
