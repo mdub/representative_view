@@ -8,7 +8,7 @@ module RepresentativeView
       if defined?(@_representative) 
         yield @_representative # included
       else
-        @_representative = appropriate_representative_class(format).new
+        @_representative = create_representative(format)
         yield @_representative
         @_representative.to_s
       end
@@ -16,15 +16,15 @@ module RepresentativeView
 
     private 
 
-    def appropriate_representative_class(format)
+    def create_representative(format)
       mime_type = Mime::Type.lookup_by_extension(format) || begin
         raise ArgumentError, "unrecognised format: #{format.inspect}"
       end
       case mime_type.to_s
       when /xml/
-        ::Representative::Nokogiri
+        ::Representative::Nokogiri.new(nil, RepresentativeView.xml_options)
       when /json/
-        ::Representative::JSON
+        ::Representative::JSON.new(nil, RepresentativeView.json_options)
       else
         raise "Representative cannot generate #{format}"
       end
