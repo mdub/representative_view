@@ -55,3 +55,14 @@ Representative View happily supports the use of partials, as long as they're als
     r.element :published do
       r.element :by
     end
+
+Configuration
+-------------
+
+Output can be controlled somewhat setting `json_options` or `xml_options` on the RepresentativeView module; these options will be passed when initialising the appropriate Representative::Nokogiri or Representative::JSON object.
+
+For example, setting:
+
+    RepresentativeView.json_options = {:naming_strategy => :camelCase}
+
+causes JSON to be output with camelCase (rather than snake_case) labels.
