@@ -9,7 +9,7 @@ end
 
 group :test do
   gem "rake", "~> 0.8.7"
-  gem "rspec", "~> 2.0.1"
-  gem "rr", "~> 1.0.0"
+  gem "rspec", "~> 2.5.0"
+  gem "rr", "~> 1.0.2"
   gem "minstrel"
 end
