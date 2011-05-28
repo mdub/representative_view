@@ -124,55 +124,40 @@ describe "a Representative template" do
     JSON
   end
 
-  describe "when json_options are set" do
-
-    before do
-      RepresentativeView.json_options = {:naming_strategy => :upcase}
-    end
-  
-    it "honours the options" do
-  
-      render("books", :json, :books => Books.all).should == undent(<<-JSON)
-        [
-          {
-            "TITLE": "Sailing for old dogs"
-          },
-          {
-            "TITLE": "On the horizon"
-          },
-          {
-            "TITLE": "The Little Blue Book of VHS Programming"
-          }
-        ]
-      JSON
-    end
-  
+  it "allows configuration of json_options" do
+    RepresentativeView.json_options = {:naming_strategy => :upcase}
+    render("books", :json, :books => Books.all).should == undent(<<-JSON)
+      [
+        {
+          "TITLE": "Sailing for old dogs"
+        },
+        {
+          "TITLE": "On the horizon"
+        },
+        {
+          "TITLE": "The Little Blue Book of VHS Programming"
+        }
+      ]
+    JSON
   end
 
-  describe "when xml_options are set" do
+  it "allows configuration of xml_options" do
 
-    before do
-      RepresentativeView.xml_options = {:naming_strategy => :upcase}
-    end
-  
-    it "honours the options" do
-  
-      render("books", :xml, :books => Books.all).should == undent(<<-XML)
-        <?xml version="1.0"?>
-        <BOOKS TYPE="array">
-          <BOOK>
-            <TITLE>Sailing for old dogs</TITLE>
-          </BOOK>
-          <BOOK>
-            <TITLE>On the horizon</TITLE>
-          </BOOK>
-          <BOOK>
-            <TITLE>The Little Blue Book of VHS Programming</TITLE>
-          </BOOK>
-        </BOOKS>
-      XML
-    end
-  
+    RepresentativeView.xml_options = {:naming_strategy => :upcase}
+    render("books", :xml, :books => Books.all).should == undent(<<-XML)
+      <?xml version="1.0"?>
+      <BOOKS TYPE="array">
+        <BOOK>
+          <TITLE>Sailing for old dogs</TITLE>
+        </BOOK>
+        <BOOK>
+          <TITLE>On the horizon</TITLE>
+        </BOOK>
+        <BOOK>
+          <TITLE>The Little Blue Book of VHS Programming</TITLE>
+        </BOOK>
+      </BOOKS>
+    XML
   end
 
 end
