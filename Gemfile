@@ -8,7 +8,7 @@ if ENV["ACTIONPACK_VERSION"]
 end
 
 group :test do
-  gem "rake"
+  gem "rake", "~> 0.8.7"
   gem "rspec", "~> 2.0.1"
   gem "rr", "~> 1.0.0"
   gem "minstrel"
