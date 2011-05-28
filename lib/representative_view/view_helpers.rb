@@ -4,7 +4,7 @@ module RepresentativeView
 
   module ViewHelpers
 
-    def representative_view(format = nil)
+    def representative_view(format)
       if defined?(@_representative) 
         yield @_representative # included
       else
@@ -17,25 +17,16 @@ module RepresentativeView
     private 
 
     def appropriate_representative_class(format)
-      format ||= guess_request_format
-      case format.to_s
+      mime_type = Mime::Type.lookup_by_extension(format) || begin
+        raise ArgumentError, "unrecognised format: #{format.inspect}"
+      end
+      case mime_type.to_s
       when /xml/
         ::Representative::Nokogiri
       when /json/
         ::Representative::JSON
       else
-        raise "cannot determine appropriate Representative class for #{format.to_s.inspect}"
-      end
-    end
-
-    def guess_request_format
-      format_extension = if respond_to?(:template_format)
-        template_format
-      else
-        formats.first
-      end
-      Mime::Type.lookup_by_extension(format_extension) || begin
-        raise "unrecognised format #{format_extension.inspect}"
+        raise "Representative cannot generate #{format}"
       end
     end
 

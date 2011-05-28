@@ -6,17 +6,13 @@ module RepresentativeView
 
     include ActionView::Template::Handlers::Compilable
 
-    self.default_format = Mime::XML
+    self.default_format = nil
 
     def compile(template)
       require 'representative/json'
       require 'representative/nokogiri'
-
-      format = template.formats.first
-      format = nil if Mime[format] == default_format
-
       <<-RUBY
-      representative_view(#{format.inspect}) do |r|
+      representative_view(#{template.formats.first.inspect}) do |r|
         #{template.source}
       end
       RUBY
