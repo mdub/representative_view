@@ -4,33 +4,39 @@ module RepresentativeView
 
   module ViewHelpers
 
-    def mime_type
-      if respond_to?(:template_format)
-        format_extension = template_format
+    def representative_view(format = nil)
+      if defined?(@_representative) 
+        yield @_representative # included
       else
-        format_extension = formats.first
-      end
-      Mime::Type.lookup_by_extension(format_extension.to_s) || begin
-        raise "unrecognised format #{format_extension.inspect}"
+        @_representative = appropriate_representative_class(format).new
+        yield @_representative
+        @_representative.to_s
       end
     end
 
+    private 
+
     def appropriate_representative_class(format)
-      case (format || mime_type).to_s
+      format ||= guess_request_format
+      case format.to_s
       when /xml/
         ::Representative::Nokogiri
       when /json/
         ::Representative::JSON
       else
-        raise "cannot determine appropriate Representative class for #{mime_type.to_s.inspect}"
+        raise "cannot determine appropriate Representative class for #{format.to_s.inspect}"
       end
     end
 
-    def representative_view(format = nil)
-      included = defined?(@_representative)
-      @_representative ||= appropriate_representative_class(format).new
-      yield @_representative
-      @_representative.to_s unless included
+    def guess_request_format
+      format_extension = if respond_to?(:template_format)
+        template_format
+      else
+        formats.first
+      end
+      Mime::Type.lookup_by_extension(format_extension) || begin
+        raise "unrecognised format #{format_extension.inspect}"
+      end
     end
 
   end
