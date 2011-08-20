@@ -37,7 +37,7 @@ Next, create a template with the suffix "`.rep`" (to select the Representative V
       r.list_of :authors
     end
 
-Note that it's "`index.rep`", not "`index.xml.rep`" or "`index.json.rep`"; by omitting the format specifier, the template will be used to render both formats.
+Note that it's "`index.rep`", not "`index.xml.rep`" or "`index.json.rep`"; those will work, too, but by omitting the format specifier, the same template can be used to render both formats.
 
 ### Partials
 
