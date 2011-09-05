@@ -102,7 +102,65 @@ describe "a Representative template" do
 
   end
 
+  it "can force a format for partials" do
+
+    write_template '_books.rep', <<-RUBY
+      r.list_of :books, @books do
+        r.element :title
+      end
+    RUBY
+
+    write_template 'books.html.erb', undent(<<-HTML)
+      <h2>JSON REPRESENTATION</h2>
+
+      <pre>
+      <%= representative(:json) { render :partial => 'books' } %></pre>
+
+      <h2>XML REPRESENTATION</h2>
+
+      <pre>
+      <%= representative(:xml) { render :partial => 'books' } %></pre>
+    HTML
+
+    render("books", :html, :books => Books.all).should == undent(<<-HTML)
+      <h2>JSON REPRESENTATION</h2>
+
+      <pre>
+      [
+        {
+          "title": "Sailing for old dogs"
+        },
+        {
+          "title": "On the horizon"
+        },
+        {
+          "title": "The Little Blue Book of VHS Programming"
+        }
+      ]
+      </pre>
+
+      <h2>XML REPRESENTATION</h2>
+
+      <pre>
+      <?xml version="1.0"?>
+      <books type="array">
+        <book>
+          <title>Sailing for old dogs</title>
+        </book>
+        <book>
+          <title>On the horizon</title>
+        </book>
+        <book>
+          <title>The Little Blue Book of VHS Programming</title>
+        </book>
+      </books>
+      </pre>
+    HTML
+
+  end
+
   it "can infer the format from the file" do
+
     write_template 'more_books.json.rep', <<-RUBY
       r.list_of :books, @books do
         r.element :title
@@ -122,10 +180,13 @@ describe "a Representative template" do
         }
       ]
     JSON
+
   end
 
   it "allows configuration of json_options" do
+
     RepresentativeView.json_options = {:naming_strategy => :upcase}
+
     render("books", :json, :books => Books.all).should == undent(<<-JSON)
       [
         {
@@ -139,11 +200,13 @@ describe "a Representative template" do
         }
       ]
     JSON
+
   end
 
   it "allows configuration of xml_options" do
 
     RepresentativeView.xml_options = {:naming_strategy => :upcase}
+
     render("books", :xml, :books => Books.all).should == undent(<<-XML)
       <?xml version="1.0"?>
       <BOOKS TYPE="array">
@@ -158,6 +221,7 @@ describe "a Representative template" do
         </BOOK>
       </BOOKS>
     XML
+
   end
 
 end
