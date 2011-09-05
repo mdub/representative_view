@@ -5,7 +5,7 @@ module RepresentativeView
   module ViewHelpers
 
     def representative_view(format)
-      if defined?(@_representative) 
+      if defined?(@_representative)
         yield @_representative # included
       else
         @_representative = create_representative(format)
@@ -14,7 +14,7 @@ module RepresentativeView
       end
     end
 
-    private 
+    private
 
     def create_representative(format)
       mime_type = Mime::Type.lookup_by_extension(format) || begin

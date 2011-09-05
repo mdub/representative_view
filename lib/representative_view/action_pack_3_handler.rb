@@ -4,15 +4,13 @@ module RepresentativeView
 
   class ActionPack3Handler < ActionView::Template::Handler
 
-    include ActionView::Template::Handlers::Compilable
-
     self.default_format = nil
 
-    def compile(template)
+    def self.call(template)
       require 'representative/json'
       require 'representative/nokogiri'
       <<-RUBY
-      representative_view(#{template.formats.first.inspect}) do |r|
+      representative_view(formats.first) do |r|
         #{template.source}
       end
       RUBY
