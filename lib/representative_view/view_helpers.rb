@@ -30,7 +30,7 @@ module RepresentativeView
       old_representative = @_current_representative
       begin
         @_current_representative = representative
-        yield
+        yield representative
       ensure
         @_current_representative = old_representative
       end

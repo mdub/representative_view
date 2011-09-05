@@ -114,12 +114,12 @@ describe "a Representative template" do
       <h2>JSON REPRESENTATION</h2>
 
       <pre>
-      <%= representative(:json) { render :partial => 'books' } %></pre>
+      <%= h representative(:json) { render :partial => 'books' } %></pre>
 
       <h2>XML REPRESENTATION</h2>
 
       <pre>
-      <%= representative(:xml) { render :partial => 'books' } %></pre>
+      <%= h representative(:xml) { render :partial => 'books' } %></pre>
     HTML
 
     render("books", :html, :books => Books.all).should == undent(<<-HTML)
@@ -128,13 +128,13 @@ describe "a Representative template" do
       <pre>
       [
         {
-          "title": "Sailing for old dogs"
+          &quot;title&quot;: &quot;Sailing for old dogs&quot;
         },
         {
-          "title": "On the horizon"
+          &quot;title&quot;: &quot;On the horizon&quot;
         },
         {
-          "title": "The Little Blue Book of VHS Programming"
+          &quot;title&quot;: &quot;The Little Blue Book of VHS Programming&quot;
         }
       ]
       </pre>
@@ -142,18 +142,18 @@ describe "a Representative template" do
       <h2>XML REPRESENTATION</h2>
 
       <pre>
-      <?xml version="1.0"?>
-      <books type="array">
-        <book>
-          <title>Sailing for old dogs</title>
-        </book>
-        <book>
-          <title>On the horizon</title>
-        </book>
-        <book>
-          <title>The Little Blue Book of VHS Programming</title>
-        </book>
-      </books>
+      &lt;?xml version=&quot;1.0&quot;?&gt;
+      &lt;books type=&quot;array&quot;&gt;
+        &lt;book&gt;
+          &lt;title&gt;Sailing for old dogs&lt;/title&gt;
+        &lt;/book&gt;
+        &lt;book&gt;
+          &lt;title&gt;On the horizon&lt;/title&gt;
+        &lt;/book&gt;
+        &lt;book&gt;
+          &lt;title&gt;The Little Blue Book of VHS Programming&lt;/title&gt;
+        &lt;/book&gt;
+      &lt;/books&gt;
       </pre>
     HTML
 
