@@ -2,9 +2,7 @@ require 'representative_view/view_helpers'
 
 module RepresentativeView
 
-  class ActionPack3Handler < ActionView::Template::Handler
-
-    self.default_format = nil
+  class ActionPack3Handler
 
     def self.call(template)
       require 'representative/json'
