@@ -56,6 +56,25 @@ Representative View happily supports the use of partials, as long as they're als
       r.element :by
     end
 
+#### Forcing a format
+
+It can occasionally be useful to include a ".rep" partial from within a non-Representative template, for instance to generate a sample JSON or XML representation in HTML-based API documentation.  This is possible by forcing a format using the `representative` helper-method, as follows:
+
+    # app/views/doc/things.html.erb
+
+    <h2>Sample JSON output</h2>
+
+    <pre>
+    <%= representative(:json) { render :partial => 'sample_things' } %>
+    </pre>
+
+    # app/views/doc/_sample_things.rep
+
+    r.list_of :things, SampleThings.all do
+      r.element :name
+      r.element :description
+    end
+
 Configuration
 -------------
 
