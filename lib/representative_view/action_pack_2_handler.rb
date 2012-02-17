@@ -7,8 +7,6 @@ module RepresentativeView
     include ActionView::TemplateHandlers::Compilable
 
     def compile(template)
-      require 'representative/json'
-      require 'representative/nokogiri'
       <<-RUBY
       representative_view(#{template.format.inspect} || template_format) do |r|
         #{template.source}

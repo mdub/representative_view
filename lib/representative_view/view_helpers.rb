@@ -1,4 +1,6 @@
 require 'action_view'
+require 'representative/json'
+require 'representative/nokogiri'
 
 module RepresentativeView
 

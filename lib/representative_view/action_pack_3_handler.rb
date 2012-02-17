@@ -5,8 +5,6 @@ module RepresentativeView
   class ActionPack3Handler
 
     def self.call(template)
-      require 'representative/json'
-      require 'representative/nokogiri'
       <<-RUBY
       representative_view(formats.first) do |r|
         #{template.source}
