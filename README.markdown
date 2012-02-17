@@ -6,7 +6,7 @@ Representative View
 Installing it
 -------------
 
-Simply add the '`representative_view`' gem to your `Gemfile` 
+Simply add the '`representative_view`' gem to your `Gemfile`
 
     gem "representative_view"
     
@@ -18,14 +18,14 @@ Using it
 In your controller, declare that you can provide both XML and JSON, e.g.
 
     class BooksController < ApplicationController
-  
+
       def index
         respond_to do |format|
           format.xml
           format.json
         end
       end
-  
+
     end
 
 Next, create a template with the suffix "`.rep`" (to select the Representative View template handler) and use the Representative DSL to generate elements and lists, e.g.

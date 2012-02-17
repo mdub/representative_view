@@ -15,7 +15,7 @@ describe "a Representative template" do
 
   it "can generate XML" do
     render("books", :xml, :books => Books.all).should == undent(<<-XML)
-      <?xml version="1.0"?>
+      <?xml version="1.0" encoding="utf-8"?>
       <books type="array">
         <book>
           <title>Sailing for old dogs</title>
@@ -33,7 +33,7 @@ describe "a Representative template" do
   it "can generate XML dialects" do
     Mime::Type.register "application/vnd.books+xml", :book_xml
     render("books", :book_xml, :books => Books.all).should == undent(<<-XML)
-      <?xml version="1.0"?>
+      <?xml version="1.0" encoding="utf-8"?>
       <books type="array">
         <book>
           <title>Sailing for old dogs</title>
@@ -142,7 +142,7 @@ describe "a Representative template" do
       <h2>XML REPRESENTATION</h2>
 
       <pre>
-      &lt;?xml version=&quot;1.0&quot;?&gt;
+      &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
       &lt;books type=&quot;array&quot;&gt;
         &lt;book&gt;
           &lt;title&gt;Sailing for old dogs&lt;/title&gt;
@@ -184,7 +184,7 @@ describe "a Representative template" do
     RepresentativeView.xml_options = {:naming_strategy => :upcase}
 
     render("books", :xml, :books => Books.all).should == undent(<<-XML)
-      <?xml version="1.0"?>
+      <?xml version="1.0" encoding="utf-8"?>
       <BOOKS TYPE="array">
         <BOOK>
           <TITLE>Sailing for old dogs</TITLE>

@@ -7,6 +7,8 @@ if ENV["ACTIONPACK_VERSION"]
   gem "actionpack", ENV["ACTIONPACK_VERSION"]
 end
 
+gem "nokogiri", ">= 1.5.0"
+
 group :test do
   gem "rake", "~> 0.8.7"
   gem "rspec", "~> 2.5.0"
