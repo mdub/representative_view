@@ -39,7 +39,7 @@ module RepresentativeView
     end
 
     def create_representative(format)
-      mime_type = Mime::Type.lookup_by_extension(format) || begin
+      mime_type = Mime::Type.lookup_by_extension(format.to_s) || begin
         raise ArgumentError, "unrecognised format: #{format.inspect}"
       end
       case mime_type.to_s
