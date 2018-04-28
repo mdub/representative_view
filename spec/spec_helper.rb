@@ -2,7 +2,7 @@ require 'action_view'
 require 'minstrel'
 require 'representative_view'
 require 'rspec'
-
+require 'ostruct'
 require 'pathname'
 require 'fixtures/books'
 
