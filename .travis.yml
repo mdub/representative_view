@@ -1,6 +1,9 @@
 language: ruby
 rvm:
   - 1.9.3
+  - 2.0.0
+  - 2.1.9
+  - 2.2.10
 env:
   - ACTIONPACK_VERSION="~> 3.0.0"
   - ACTIONPACK_VERSION="~> 3.1.0"

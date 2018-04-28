@@ -10,7 +10,7 @@ end
 gem "nokogiri", ">= 1.5.0"
 
 group :test do
-  gem "rake", "~> 0.8.7"
+  gem "rake", "~> 0.9.6"
   gem "rspec", "~> 2.5.0"
   gem "rr", "~> 1.0.2"
   gem "minstrel"
