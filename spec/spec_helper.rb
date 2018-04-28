@@ -24,7 +24,7 @@ module Fixtures
     if @base.respond_to?(:template_format=) # actionpack-2
       @base.template_format = format
     elsif @base.respond_to?(:lookup_context) # actionpack-3
-      @base.lookup_context.freeze_formats([format])
+      @base.lookup_context.formats = [format]
     end
     @base.render(:file => file)
   end
