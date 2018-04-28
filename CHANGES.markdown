@@ -1,10 +1,13 @@
-1.2.0 - 2011-09-06
-------------------
+## Unreleased
 
-### Enhancements
+### Removed
+- Remove support for Ruby 1.8, and Rails 2.
 
-  - Addition of `representative(FORMAT)` method, allowing a format to be forced.
+## 1.2.0 - 2011-09-06
 
-### Removals
+### Added
+- Addition of `representative(FORMAT)` method, allowing a format to be forced.
 
-  - We no longer attempt to infer an output format from the template format.
+### Removed
+
+- We no longer attempt to infer an output format from the template format.
