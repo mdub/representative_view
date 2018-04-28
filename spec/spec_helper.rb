@@ -31,7 +31,7 @@ module Fixtures
 
 end
 
-Rspec.configure do |config|
+RSpec.configure do |config|
 
   config.mock_with :rr
   config.include(Fixtures)
