@@ -1,6 +1,9 @@
 Representative View
 ===================
 
+[![Gem Version](https://badge.fury.io/rb/representative_view.png)](http://badge.fury.io/rb/representative_view)
+[![Build Status](https://secure.travis-ci.org/mdub/representative_view.png?branch=master)](http://travis-ci.org/mdub/representative_view)
+
 "Representative View" integrates [Representative](http://github.com/mdub/representative) as a Rails template format, making it possible to generate XML and JSON representations of data <u>using the same template</u>.
 
 Installing it
@@ -9,7 +12,7 @@ Installing it
 Simply add the '`representative_view`' gem to your `Gemfile`
 
     gem "representative_view"
-    
+
 and run "`bundle install`".
 
 Using it
@@ -31,7 +34,7 @@ In your controller, declare that you can provide both XML and JSON, e.g.
 Next, create a template with the suffix "`.rep`" (to select the Representative View template handler) and use the Representative DSL to generate elements and lists, e.g.
 
     # app/views/books/index.rep
-    
+
     r.list_of :books, @books do
       r.element :title
       r.list_of :authors
