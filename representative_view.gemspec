@@ -9,6 +9,7 @@ Gem::Specification.new do |gem|
   gem.homepage = "http://github.com/mdub/representative_view"
   gem.authors = ["Mike Williams"]
   gem.email = "mdub@dogbiscuit.org"
+  gem.license = "MIT"
 
   gem.version = RepresentativeView::VERSION.dup
   gem.platform = Gem::Platform::RUBY
